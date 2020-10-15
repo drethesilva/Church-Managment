@@ -17,17 +17,13 @@ namespace My_Locker_V2.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Por favor insira o seu Nome!" , AllowEmptyStrings = false)]
         public string Nome { get; set; }
         public string Apelido { get; set; }
 
-        [Required(ErrorMessage = "Por favor insira o seu email!" , AllowEmptyStrings = false)]
         public string Email { get; set; }
         
-        [Required(ErrorMessage = "Por favor digite uma password segura!", AllowEmptyStrings = false)]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Por favor indique se é membro ou não!", AllowEmptyStrings = false)]
-        public Nullable<bool> Membro { get; set; }
+        public bool Membro { get; set; }
     }
 }

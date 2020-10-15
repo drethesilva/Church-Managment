@@ -17,15 +17,15 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
-                @*@Html.ValidationMessageFor(model => model.Nome, "" , new { @class = "text-danger" })*@
+                @Html.TextBoxFor(model => model.Nome, new { required="true" , @class = "form-control"  })
+                @Html.ValidationMessageFor(model => model.Nome, "" , new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Apelido, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Apelido, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Apelido, new { required="true" , @class = "form-control"  })
                 @Html.ValidationMessageFor(model => model.Apelido, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -33,7 +33,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Email, new { required="true" , @class = "form-control"  })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -41,7 +41,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.PasswordFor(model => model.Password, new {required="true" , @class = "form-control"  })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -50,7 +50,7 @@
             @Html.LabelFor(model => model.Membro, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.Membro)
+                    @Html.CheckBoxFor(model => model.Membro, new { required="true" , @class = "form-control"  })
                     @Html.ValidationMessageFor(model => model.Membro, "", new { @class = "text-danger" })
                 </div>
             </div>
