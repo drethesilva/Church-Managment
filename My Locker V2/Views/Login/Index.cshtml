@@ -1,0 +1,40 @@
+﻿@model My_Locker_V2.Models.Utilizadores
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Index</h2>
+
+
+@using (Ajax.BeginForm("Submited", "Login", new AjaxOptions { LoadingElementId = "loader", OnSuccess = "onSuccess" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Login</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Email, new { required = "true", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.Password, new { required = "true", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Login" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
