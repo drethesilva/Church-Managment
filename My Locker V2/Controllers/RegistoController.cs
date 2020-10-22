@@ -66,7 +66,7 @@ namespace My_Locker_V2.Controllers
                     if(hasEmail == false)
                     {
                         // Encriptar password
-                        Encrypt(formData.Password);
+                        string passEncrypt = Encrypt(formData.Password);
 
                         int membro;
 
@@ -75,7 +75,7 @@ namespace My_Locker_V2.Controllers
                         SqlParameter[] param = new SqlParameter[]{new SqlParameter("@Nome", formData.Nome),
                             new SqlParameter("@Apelido", formData.Apelido),
                             new SqlParameter("@Email", formData.Email),
-                            new SqlParameter("@Password", formData.Password),
+                            new SqlParameter("@Password", passEncrypt),
                             new SqlParameter("@Membro", membro), };
 {
                             
