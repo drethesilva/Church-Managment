@@ -50,7 +50,7 @@
             @Html.LabelFor(model => model.Membro, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.CheckBoxFor(model => model.Membro, new { required="true" , @class = "form-control"  })
+                    @Html.CheckBoxFor(model => model.Membro, new { @class = "form-control"  })
                     @Html.ValidationMessageFor(model => model.Membro, "", new { @class = "text-danger" })
                 </div>
             </div>

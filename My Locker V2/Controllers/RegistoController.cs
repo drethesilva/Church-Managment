@@ -1,11 +1,7 @@
 ﻿using My_Locker_V2.Models;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
 
 namespace My_Locker_V2.Controllers
@@ -22,18 +18,7 @@ namespace My_Locker_V2.Controllers
             return View();
         }
 
-        public static string Encrypt(string password)
-        {
-            MD5 md5 = new MD5CryptoServiceProvider();
-            UTF8Encoding encoder = new UTF8Encoding();
-            Byte[] originalBytes = encoder.GetBytes(password);
-            Byte[] encodedBytes = md5.ComputeHash(originalBytes);
-            password = BitConverter.ToString(encodedBytes).Replace("-", "");
-            var result = password.ToLower();
-
-            return result;
-        }
-
+    
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -66,7 +51,7 @@ namespace My_Locker_V2.Controllers
                     if(hasEmail == false)
                     {
                         // Encriptar password
-                        string passEncrypt = Encrypt(formData.Password);
+                        string passEncrypt = My_Locker_V2.Classes.MyCommonUtilities.Encrypt(formData.Password);
 
                         int membro;
 

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="utilizadoresModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="utilizadoresModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Utilizadores">
           <Key>
             <PropertyRef Name="Id" />
@@ -16,11 +16,21 @@
           <Property Name="Password" Type="varchar" MaxLength="50" />
           <Property Name="Membro" Type="bit" />
         </EntityType>
+        <Function Name="Add_Utilizador" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nome" Type="varchar" Mode="In" />
+          <Parameter Name="Apelido" Type="varchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+          <Parameter Name="Membro" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="showPasswordFromEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="showUSers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="utilizadoresModelStoreContainer">
           <EntitySet Name="Utilizadores" EntityType="Self.Utilizadores" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="utilizadoresModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -37,7 +47,26 @@
         </EntityType>
         <EntityContainer Name="masterEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Utilizadores" EntityType="Self.Utilizadores" />
+          <FunctionImport Name="Add_Utilizador">
+            <Parameter Name="Nome" Mode="In" Type="String" />
+            <Parameter Name="Apelido" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Membro" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="showPasswordFromEmail" ReturnType="Collection(String)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="showUSers" ReturnType="Collection(utilizadoresModel.showUSers_Result)" />
         </EntityContainer>
+        <ComplexType Name="showUSers_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Nome" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Apelido" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="Membro" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -56,6 +85,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Add_Utilizador" FunctionName="utilizadoresModel.Store.Add_Utilizador" />
+          <FunctionImportMapping FunctionImportName="showPasswordFromEmail" FunctionName="utilizadoresModel.Store.showPasswordFromEmail" />
+          <FunctionImportMapping FunctionImportName="showUSers" FunctionName="utilizadoresModel.Store.showUSers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="utilizadoresModel.showUSers_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Apelido" ColumnName="Apelido" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Membro" ColumnName="Membro" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -12,6 +12,8 @@ namespace My_Locker_V2.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class masterEntities : DbContext
     {
@@ -26,5 +28,44 @@ namespace My_Locker_V2.Models
         }
     
         public virtual DbSet<Utilizadores> Utilizadores { get; set; }
+    
+        public virtual int Add_Utilizador(string nome, string apelido, string email, string password, Nullable<bool> membro)
+        {
+            var nomeParameter = nome != null ?
+                new ObjectParameter("Nome", nome) :
+                new ObjectParameter("Nome", typeof(string));
+    
+            var apelidoParameter = apelido != null ?
+                new ObjectParameter("Apelido", apelido) :
+                new ObjectParameter("Apelido", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            var membroParameter = membro.HasValue ?
+                new ObjectParameter("Membro", membro) :
+                new ObjectParameter("Membro", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_Utilizador", nomeParameter, apelidoParameter, emailParameter, passwordParameter, membroParameter);
+        }
+    
+        public virtual ObjectResult<string> showPasswordFromEmail(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("showPasswordFromEmail", emailParameter);
+        }
+    
+        public virtual ObjectResult<showUSers_Result> showUSers()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<showUSers_Result>("showUSers");
+        }
     }
 }
