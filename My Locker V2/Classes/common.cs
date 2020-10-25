@@ -21,5 +21,33 @@ namespace My_Locker_V2.Classes
             return result;
         }
 
+
+        public static List<DateTime> GetAllSats(int year)
+        {
+            List<DateTime> Dates = new List<DateTime>();
+
+
+            DateTime Date = new DateTime(year, 1, 1);
+
+
+            while (Date.Year == year)
+            {
+                if ((Date.DayOfWeek == DayOfWeek.Saturday) && Date.Date > DateTime.Now.Date)
+                {
+                    Dates.Add(Date);
+                    Date = Date.AddDays(1);
+                }
+                else
+                {
+                    Date = Date.AddDays(1);
+                }
+                    
+
+               
+            }
+
+            return Dates;
+        }
+
     }
 }
