@@ -17,11 +17,11 @@ namespace My_Locker_V2.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Registo()
         {
             ViewBag.Message = "Your application description page.";
 
-            return View();
+            return View("~/Views/Registo/Index.cshtml");
         }
 
         public ActionResult Contact()
@@ -31,7 +31,7 @@ namespace My_Locker_V2.Controllers
             return View();
         }
 
-        public ActionResult List()
+        public ActionResult Login()
         {
             // se for necessario passar parametros 
             //SqlParameter[] param = new SqlParameter[]
@@ -40,8 +40,8 @@ namespace My_Locker_V2.Controllers
             //    new SqlParameter("",0)
             //};
 
-            var data = context.Database.SqlQuery<Users>("select_users_and_info").ToList();
-            return View(data);
+            //var data = context.Database.SqlQuery<Users>("select_users_and_info").ToList();
+            return View("~/Views/Login/Index.cshtml");
         }
     }
 }
