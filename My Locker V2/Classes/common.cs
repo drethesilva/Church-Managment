@@ -1,14 +1,19 @@
-﻿using System;
+﻿using My_Locker_V2.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using System.Web.Mvc;
 
 namespace My_Locker_V2.Classes
 {
     public class MyCommonUtilities
     {
+
+    
+
         public static string Encrypt(string password)
         {
             MD5 md5 = new MD5CryptoServiceProvider();
@@ -47,6 +52,28 @@ namespace My_Locker_V2.Classes
             }
 
             return Dates;
+        }
+
+        
+
+        public static Staff GetIgrejas()
+        {
+            MasterDB context = new MasterDB();
+
+            var model = new Staff();
+
+            var nameIgrejas = context.Database.SqlQuery<Igreja>("SELECT * FROM Igreja").ToList();
+
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            foreach (var i in nameIgrejas)
+            {
+                items.Add(new SelectListItem() { Text = i.Localidade, Value = i.Id.ToString() });
+            }
+
+            model.Igrejas = new SelectList(items, "Value", "Text");
+
+            return model;
         }
 
     }

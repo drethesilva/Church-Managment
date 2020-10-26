@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="utilizadoresModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Igreja">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Localidade" Type="varchar" MaxLength="50" />
+          <Property Name="Telemovel" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Sabados">
           <Key>
             <PropertyRef Name="Id" />
@@ -12,6 +21,15 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Data" Type="date" />
           <Property Name="Disponibilidade" Type="bit" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="_Password" Type="varchar" MaxLength="50" />
+          <Property Name="igrejaId" Type="int" />
         </EntityType>
         <EntityType Name="Utilizadores">
           <Key>
@@ -24,6 +42,18 @@
           <Property Name="Password" Type="varchar" MaxLength="50" />
           <Property Name="Membro" Type="bit" />
         </EntityType>
+        <Association Name="FK__Staff__igrejaId__6774552F">
+          <End Role="Igreja" Type="Self.Igreja" Multiplicity="0..1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Igreja">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="igrejaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="Add_Utilizador" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Nome" Type="varchar" Mode="In" />
           <Parameter Name="Apelido" Type="varchar" Mode="In" />
@@ -36,8 +66,14 @@
         </Function>
         <Function Name="showUSers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="utilizadoresModelStoreContainer">
+          <EntitySet Name="Igreja" EntityType="Self.Igreja" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sabados" EntityType="Self.Sabados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Utilizadores" EntityType="Self.Utilizadores" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Staff__igrejaId__6774552F" Association="Self.FK__Staff__igrejaId__6774552F">
+            <End Role="Igreja" EntitySet="Igreja" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -68,7 +104,13 @@
           </FunctionImport>
           <FunctionImport Name="showUSers" ReturnType="Collection(utilizadoresModel.showUSers_Result)" />
           <EntitySet Name="Sabados" EntityType="utilizadoresModel.Sabados" />
-        </EntityContainer>
+          <EntitySet Name="Igreja" EntityType="utilizadoresModel.Igreja" />
+          <EntitySet Name="Staff" EntityType="utilizadoresModel.Staff" />
+          <AssociationSet Name="FK__Staff__igrejaId__6774552F" Association="utilizadoresModel.FK__Staff__igrejaId__6774552F">
+            <End Role="Igreja" EntitySet="Igreja" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+          </EntityContainer>
         <ComplexType Name="showUSers_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="Nome" Nullable="true" MaxLength="50" />
@@ -85,7 +127,39 @@
           <Property Name="Data" Type="DateTime" Precision="0" />
           <Property Name="Disponibilidade" Type="Boolean" />
         </EntityType>
-      </Schema>
+        <EntityType Name="Igreja">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Localidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telemovel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Staff" Relationship="utilizadoresModel.FK__Staff__igrejaId__6774552F" FromRole="Igreja" ToRole="Staff" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="igrejaId" Type="Int32" />
+          <NavigationProperty Name="Igreja" Relationship="utilizadoresModel.FK__Staff__igrejaId__6774552F" FromRole="Staff" ToRole="Igreja" />
+        </EntityType>
+        <Association Name="FK__Staff__igrejaId__6774552F">
+          <End Type="utilizadoresModel.Igreja" Role="Igreja" Multiplicity="0..1" />
+          <End Type="utilizadoresModel.Staff" Role="Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Igreja">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="igrejaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -122,6 +196,26 @@
               <MappingFragment StoreEntitySet="Sabados">
                 <ScalarProperty Name="Disponibilidade" ColumnName="Disponibilidade" />
                 <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Igreja">
+            <EntityTypeMapping TypeName="utilizadoresModel.Igreja">
+              <MappingFragment StoreEntitySet="Igreja">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telemovel" ColumnName="Telemovel" />
+                <ScalarProperty Name="Localidade" ColumnName="Localidade" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staff">
+            <EntityTypeMapping TypeName="utilizadoresModel.Staff">
+              <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="igrejaId" ColumnName="igrejaId" />
+                <ScalarProperty Name="Password" ColumnName="_Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

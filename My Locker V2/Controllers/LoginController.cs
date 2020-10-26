@@ -13,7 +13,6 @@ namespace My_Locker_V2.Controllers
     public class LoginController : Controller
     {
         MasterDB context = new MasterDB();
-        bool hasEmail;
 
         // GET: Login
         public ActionResult Index()

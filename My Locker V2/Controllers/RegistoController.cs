@@ -11,7 +11,7 @@ namespace My_Locker_V2.Controllers
         // GET: Registo
 
         MasterDB context = new MasterDB();
-        bool hasEmail;
+
 
         public ActionResult Index()
         {

@@ -29,6 +29,8 @@ namespace My_Locker_V2.Models
     
         public virtual DbSet<Utilizadores> Utilizadores { get; set; }
         public virtual DbSet<Sabados> Sabados { get; set; }
+        public virtual DbSet<Igreja> Igreja { get; set; }
+        public virtual DbSet<Staff> Staff { get; set; }
     
         public virtual int Add_Utilizador(string nome, string apelido, string email, string password, Nullable<bool> membro)
         {

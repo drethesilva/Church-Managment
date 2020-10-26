@@ -137,6 +137,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Igreja.cs">
+      <DependentUpon>Utilizadores.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -156,6 +159,9 @@
       <DependentUpon>Utilizadores.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\showUSers_Result.cs">
+      <DependentUpon>Utilizadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Staff.cs">
       <DependentUpon>Utilizadores.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Users.cs">
@@ -257,6 +263,7 @@
     <Content Include="Views\Shared\_LayoutUser.cshtml" />
     <Content Include="Views\insideUser\Index.cshtml" />
     <Content Include="Views\Admin\BackOffice.cshtml" />
+    <Content Include="Views\Admin\_addStaff.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
