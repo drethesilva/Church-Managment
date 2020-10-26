@@ -7,9 +7,16 @@
 
 <h2>Index</h2>
 
-@foreach(var i in Model)
-{
-    <p> @i.ToString("dd/MM/yyyy") </p>
-}
+<div class="row">
+    @foreach (var i in Model)
+    {
+    <div class="col-12 col-md-6">
+        <p> @i.ToString("dd/MM/yyyy") </p>
+    </div>
+        
+    }
+</div>
+
+
 
 

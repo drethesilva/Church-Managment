@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Classes\common.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\insideUserController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -150,6 +151,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Sabados.cs">
+      <DependentUpon>Utilizadores.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\showUSers_Result.cs">
       <DependentUpon>Utilizadores.tt</DependentUpon>
@@ -252,6 +256,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutUser.cshtml" />
     <Content Include="Views\insideUser\Index.cshtml" />
+    <Content Include="Views\Admin\BackOffice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
