@@ -8,13 +8,19 @@
 <h2>Index</h2>
 
 <div class="row">
-    @foreach (var i in Model)
+
+    @if (Model != null)
     {
-    <div class="col-12 col-md-6">
-        <p> @i.ToString("dd/MM/yyyy") </p>
-    </div>
-        
+        foreach (var i in Model)
+        {
+            <div class="col-12 col-md-6">
+                <p> @i.ToString("dd/MM/yyyy") </p>
+            </div>
+
+        }
     }
+
+
 </div>
 
 

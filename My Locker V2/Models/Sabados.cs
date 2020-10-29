@@ -14,8 +14,17 @@ namespace My_Locker_V2.Models
     
     public partial class Sabados
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Sabados()
+        {
+            this.Registos = new HashSet<Registos>();
+        }
+    
         public int Id { get; set; }
         public Nullable<System.DateTime> Data { get; set; }
         public Nullable<bool> Disponibilidade { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Registos> Registos { get; set; }
     }
 }

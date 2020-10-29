@@ -4,13 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f769daac6d3b40abb22d4f238e56db0f" Name="Diagram1">
-        <EntityTypeShape EntityType="utilizadoresModel.Utilizadores" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="utilizadoresModel.Sabados" Width="1.5" PointX="3.375" PointY="0.75" />
-        <EntityTypeShape EntityType="utilizadoresModel.Igreja" Width="1.5" PointX="0.75" PointY="3.875" />
-        <EntityTypeShape EntityType="utilizadoresModel.Staff" Width="1.5" PointX="3" PointY="3.875" />
-        <AssociationConnector Association="utilizadoresModel.FK__Staff__igrejaId__6774552F" />
-        </Diagram>
+      <Diagram DiagramId="98ebda48fe354b439cec5a451e5c583c" Name="Diagram1">
+        <EntityTypeShape EntityType="masterModel.Igreja" Width="1.5" PointX="1" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="masterModel.Sabados" Width="1.5" PointX="1" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="masterModel.Staff" Width="1.5" PointX="5.375" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="masterModel.Utilizadores" Width="1.5" PointX="3.75" PointY="3.375" IsExpanded="true" />
+        <AssociationConnector Association="masterModel.FK__Staff__igrejaId__6774552F" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="masterModel.Registos" Width="1.5" PointX="6" PointY="3.625" />
+        <AssociationConnector Association="masterModel.FK__Registos__sabado__74CE504D" />
+        <AssociationConnector Association="masterModel.FK__Registos__utiliz__75C27486" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

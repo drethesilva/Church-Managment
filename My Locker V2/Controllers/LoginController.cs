@@ -33,10 +33,11 @@ namespace My_Locker_V2.Controllers
                    
                     try
                     {
+                        // User
                         SqlParameter[] param = new SqlParameter[] { new SqlParameter("@Email", formData.Email) };
                         var data = context.Database.SqlQuery<Utilizadores>("showPasswordFromEmail @Email", param).ToList();
 
-                        if(data.Count() <= 1)
+                        if(data.Count() != 0)
                         {
                             foreach(var i in data)
                             {
@@ -53,39 +54,40 @@ namespace My_Locker_V2.Controllers
                             }
                            
                         }
-                        else
+
+                        // Staff 
+                        var dataStaff = context.Database.SqlQuery<Staff>("SELECT * FROM Staff WHERE Email = '" + formData.Email.ToLower() + "'").ToList();
+
+                        if(dataStaff.Count() != 0)
                         {
-                            ModelState.AddModelError("Email", "Email duplicado");
-                            return View("Index", formData);
+                            foreach(var i in data)
+                            {
+                                var pass = My_Locker_V2.Classes.MyCommonUtilities.Encrypt(formData.Password);
+
+                                if(i.Password == pass)
+                                {
+                                    return View("~/Views/staff/StaffCentral.cshtml", formData);
+                                }
+                                else
+                                {
+                                    ModelState.AddModelError("Password", "Dados Incorretos");
+                                    return View("Index", formData);
+                                }
+
+                            }
                         }
 
-                     
+
+
 
 
                     }
-                    catch(Exception er)
+                    catch (Exception er)
                     {
                         ModelState.AddModelError("Email", "Email Introduzido não está registado");
                         return View("Index", formData);
                     }
 
-
-                    //foreach (var i in data)
-                    //{
-                    //    if (i.Email != null) 
-                    //    {
-                    //        serverEmail = i.Email.ToLower();
-                    //        userEmail = formData.Email.ToLower();
-
-                    //        if (serverEmail == (userEmail))
-                    //        {
-                    //            hasEmail = true;
-                    //            break;
-                    //        }
-                    //        else { hasEmail = false; }
-                    //    };
-                       
-                    //}
                 }
                 catch (Exception er) { }
 

@@ -134,28 +134,20 @@
     <Compile Include="Controllers\insideUserController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistoController.cs" />
+    <Compile Include="Controllers\staffController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Igreja.cs">
       <DependentUpon>Utilizadores.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
+    <Compile Include="Models\Registos.cs">
+      <DependentUpon>Utilizadores.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sabados.cs">
+      <DependentUpon>Utilizadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\showPasswordFromEmail_Result.cs">
       <DependentUpon>Utilizadores.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\showUSers_Result.cs">
@@ -163,9 +155,6 @@
     </Compile>
     <Compile Include="Models\Staff.cs">
       <DependentUpon>Utilizadores.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Users.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Utilizadores.Context.cs">
       <AutoGen>True</AutoGen>
@@ -196,16 +185,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
     <Content Include="Models\Utilizadores.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Utilizadores.edmx</DependentUpon>
@@ -218,13 +197,6 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <EntityDeploy Include="Models\Utilizadores.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Utilizadores.Designer.cs</LastGenOutput>
@@ -264,6 +236,8 @@
     <Content Include="Views\insideUser\Index.cshtml" />
     <Content Include="Views\Admin\BackOffice.cshtml" />
     <Content Include="Views\Admin\_addStaff.cshtml" />
+    <Content Include="Views\staff\StaffCentral.cshtml" />
+    <Content Include="Views\staff\_manageSats.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

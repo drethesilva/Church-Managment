@@ -14,11 +14,20 @@ namespace My_Locker_V2.Models
     
     public partial class Utilizadores
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Utilizadores()
+        {
+            this.Registos = new HashSet<Registos>();
+        }
+    
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Apelido { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public bool Membro { get; set; }
+        public Nullable<bool> Membro { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Registos> Registos { get; set; }
     }
 }

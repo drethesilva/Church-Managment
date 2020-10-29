@@ -67,7 +67,7 @@ namespace My_Locker_V2.Controllers
                 {
                     try
                     {
-                        context.Database.ExecuteSqlCommand("INSERT INTO dbo.Staff(Email,_Password,igrejaId) VALUES ('" + formData.Email.ToLower() + "','" + My_Locker_V2.Classes.MyCommonUtilities.Encrypt(formData.Password)+"','"+formData.igrejaId+"')");
+                        context.Database.ExecuteSqlCommand("INSERT INTO dbo.Staff(Email,_Password,igrejaId) VALUES ('" + formData.Email.ToLower() + "','" + My_Locker_V2.Classes.MyCommonUtilities.Encrypt(formData.C_Password)+"','"+formData.igrejaId+"')");
                     }
                     catch (Exception er) { }
                 }

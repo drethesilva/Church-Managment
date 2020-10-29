@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="utilizadoresModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="masterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Igreja">
           <Key>
             <PropertyRef Name="Id" />
@@ -13,6 +13,14 @@
           <Property Name="Localidade" Type="varchar" MaxLength="50" />
           <Property Name="Telemovel" Type="varchar" MaxLength="50" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Registos">
+          <Key>
+            <PropertyRef Name="RegistosID" />
+          </Key>
+          <Property Name="RegistosID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sabadosID" Type="int" />
+          <Property Name="utilizadoresID" Type="int" />
         </EntityType>
         <EntityType Name="Sabados">
           <Key>
@@ -42,6 +50,30 @@
           <Property Name="Password" Type="varchar" MaxLength="50" />
           <Property Name="Membro" Type="bit" />
         </EntityType>
+        <Association Name="FK__Registos__sabado__74CE504D">
+          <End Role="Sabados" Type="Self.Sabados" Multiplicity="0..1" />
+          <End Role="Registos" Type="Self.Registos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sabados">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Registos">
+              <PropertyRef Name="sabadosID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Registos__utiliz__75C27486">
+          <End Role="Utilizadores" Type="Self.Utilizadores" Multiplicity="0..1" />
+          <End Role="Registos" Type="Self.Registos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilizadores">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Registos">
+              <PropertyRef Name="utilizadoresID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Staff__igrejaId__6774552F">
           <End Role="Igreja" Type="Self.Igreja" Multiplicity="0..1" />
           <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
@@ -61,15 +93,25 @@
           <Parameter Name="Password" Type="varchar" Mode="In" />
           <Parameter Name="Membro" Type="bit" Mode="In" />
         </Function>
+        <Function Name="select_users_and_info" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="showPasswordFromEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Email" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="showUSers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <EntityContainer Name="utilizadoresModelStoreContainer">
+        <EntityContainer Name="masterModelStoreContainer">
           <EntitySet Name="Igreja" EntityType="Self.Igreja" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Registos" EntityType="Self.Registos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sabados" EntityType="Self.Sabados" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Utilizadores" EntityType="Self.Utilizadores" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Registos__sabado__74CE504D" Association="Self.FK__Registos__sabado__74CE504D">
+            <End Role="Sabados" EntitySet="Sabados" />
+            <End Role="Registos" EntitySet="Registos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Registos__utiliz__75C27486" Association="Self.FK__Registos__utiliz__75C27486">
+            <End Role="Utilizadores" EntitySet="Utilizadores" />
+            <End Role="Registos" EntitySet="Registos" />
+          </AssociationSet>
           <AssociationSet Name="FK__Staff__igrejaId__6774552F" Association="Self.FK__Staff__igrejaId__6774552F">
             <End Role="Igreja" EntitySet="Igreja" />
             <End Role="Staff" EntitySet="Staff" />
@@ -78,7 +120,36 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="utilizadoresModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="masterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Igreja">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Localidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telemovel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK__Staff__igrejaId__6774552F" FromRole="Igreja" ToRole="Staff" />
+        </EntityType>
+        <EntityType Name="Sabados">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Data" Type="DateTime" Precision="0" />
+          <Property Name="Disponibilidade" Type="Boolean" />
+          <NavigationProperty Name="Registos" Relationship="masterModel.FK__Registos__sabado__74CE504D" FromRole="Sabados" ToRole="Registos" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="C_Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="igrejaId" Type="Int32" />
+          <NavigationProperty Name="Igreja" Relationship="Self.FK__Staff__igrejaId__6774552F" FromRole="Staff" ToRole="Igreja" />
+        </EntityType>
         <EntityType Name="Utilizadores">
           <Key>
             <PropertyRef Name="Id" />
@@ -89,67 +160,11 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Membro" Type="Boolean" />
-        </EntityType>
-        <EntityContainer Name="masterEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Utilizadores" EntityType="Self.Utilizadores" />
-          <FunctionImport Name="Add_Utilizador">
-            <Parameter Name="Nome" Mode="In" Type="String" />
-            <Parameter Name="Apelido" Mode="In" Type="String" />
-            <Parameter Name="Email" Mode="In" Type="String" />
-            <Parameter Name="Password" Mode="In" Type="String" />
-            <Parameter Name="Membro" Mode="In" Type="Boolean" />
-          </FunctionImport>
-          <FunctionImport Name="showPasswordFromEmail" ReturnType="Collection(String)">
-          <Parameter Name="Email" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="showUSers" ReturnType="Collection(utilizadoresModel.showUSers_Result)" />
-          <EntitySet Name="Sabados" EntityType="utilizadoresModel.Sabados" />
-          <EntitySet Name="Igreja" EntityType="utilizadoresModel.Igreja" />
-          <EntitySet Name="Staff" EntityType="utilizadoresModel.Staff" />
-          <AssociationSet Name="FK__Staff__igrejaId__6774552F" Association="utilizadoresModel.FK__Staff__igrejaId__6774552F">
-            <End Role="Igreja" EntitySet="Igreja" />
-            <End Role="Staff" EntitySet="Staff" />
-          </AssociationSet>
-          </EntityContainer>
-        <ComplexType Name="showUSers_Result">
-          <Property Type="Int32" Name="Id" Nullable="false" />
-          <Property Type="String" Name="Nome" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Apelido" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
-          <Property Type="Boolean" Name="Membro" Nullable="true" />
-        </ComplexType>
-        <EntityType Name="Sabados">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Data" Type="DateTime" Precision="0" />
-          <Property Name="Disponibilidade" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="Igreja">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Localidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Telemovel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Staff" Relationship="utilizadoresModel.FK__Staff__igrejaId__6774552F" FromRole="Igreja" ToRole="Staff" />
-        </EntityType>
-        <EntityType Name="Staff">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="igrejaId" Type="Int32" />
-          <NavigationProperty Name="Igreja" Relationship="utilizadoresModel.FK__Staff__igrejaId__6774552F" FromRole="Staff" ToRole="Igreja" />
+          <NavigationProperty Name="Registos" Relationship="masterModel.FK__Registos__utiliz__75C27486" FromRole="Utilizadores" ToRole="Registos" />
         </EntityType>
         <Association Name="FK__Staff__igrejaId__6774552F">
-          <End Type="utilizadoresModel.Igreja" Role="Igreja" Multiplicity="0..1" />
-          <End Type="utilizadoresModel.Staff" Role="Staff" Multiplicity="*" />
+          <End Role="Igreja" Type="Self.Igreja" Multiplicity="0..1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Igreja">
               <PropertyRef Name="Id" />
@@ -159,14 +174,120 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+        <EntityContainer Name="MasterDB" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Igreja" EntityType="Self.Igreja" />
+          <EntitySet Name="Sabados" EntityType="Self.Sabados" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" />
+          <EntitySet Name="Utilizadores" EntityType="Self.Utilizadores" />
+          <AssociationSet Name="FK__Staff__igrejaId__6774552F" Association="Self.FK__Staff__igrejaId__6774552F">
+            <End Role="Igreja" EntitySet="Igreja" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+          <FunctionImport Name="Add_Utilizador">
+            <Parameter Name="Nome" Mode="In" Type="String" />
+            <Parameter Name="Apelido" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Membro" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="select_users_and_info" />
+          <FunctionImport Name="showPasswordFromEmail" ReturnType="Collection(masterModel.showPasswordFromEmail_Result)">
+          <Parameter Name="Email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="showUSers" ReturnType="Collection(masterModel.showUSers_Result)" />
+          <EntitySet Name="Registos" EntityType="masterModel.Registos" />
+          <AssociationSet Name="FK__Registos__sabado__74CE504D" Association="masterModel.FK__Registos__sabado__74CE504D">
+            <End Role="Sabados" EntitySet="Sabados" />
+            <End Role="Registos" EntitySet="Registos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Registos__utiliz__75C27486" Association="masterModel.FK__Registos__utiliz__75C27486">
+            <End Role="Utilizadores" EntitySet="Utilizadores" />
+            <End Role="Registos" EntitySet="Registos" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="showPasswordFromEmail_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="showUSers_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Nome" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Apelido" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="Membro" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Registos">
+          <Key>
+            <PropertyRef Name="RegistosID" />
+          </Key>
+          <Property Name="RegistosID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sabadosID" Type="Int32" />
+          <Property Name="utilizadoresID" Type="Int32" />
+          <NavigationProperty Name="Sabados" Relationship="masterModel.FK__Registos__sabado__74CE504D" FromRole="Registos" ToRole="Sabados" />
+          <NavigationProperty Name="Utilizadores" Relationship="masterModel.FK__Registos__utiliz__75C27486" FromRole="Registos" ToRole="Utilizadores" />
+        </EntityType>
+        <Association Name="FK__Registos__sabado__74CE504D">
+          <End Type="masterModel.Sabados" Role="Sabados" Multiplicity="0..1" />
+          <End Type="masterModel.Registos" Role="Registos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sabados">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Registos">
+              <PropertyRef Name="sabadosID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Registos__utiliz__75C27486">
+          <End Type="masterModel.Utilizadores" Role="Utilizadores" Multiplicity="0..1" />
+          <End Type="masterModel.Registos" Role="Registos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilizadores">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Registos">
+              <PropertyRef Name="utilizadoresID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="utilizadoresModelStoreContainer" CdmEntityContainer="masterEntities">
+        <EntityContainerMapping StorageEntityContainer="masterModelStoreContainer" CdmEntityContainer="MasterDB">
+          <EntitySetMapping Name="Igreja">
+            <EntityTypeMapping TypeName="masterModel.Igreja">
+              <MappingFragment StoreEntitySet="Igreja">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Localidade" ColumnName="Localidade" />
+                <ScalarProperty Name="Telemovel" ColumnName="Telemovel" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sabados">
+            <EntityTypeMapping TypeName="masterModel.Sabados">
+              <MappingFragment StoreEntitySet="Sabados">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Disponibilidade" ColumnName="Disponibilidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staff">
+            <EntityTypeMapping TypeName="masterModel.Staff">
+              <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="C_Password" ColumnName="_Password" />
+                <ScalarProperty Name="igrejaId" ColumnName="igrejaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Utilizadores">
-            <EntityTypeMapping TypeName="utilizadoresModel.Utilizadores">
+            <EntityTypeMapping TypeName="masterModel.Utilizadores">
               <MappingFragment StoreEntitySet="Utilizadores">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
@@ -177,11 +298,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="Add_Utilizador" FunctionName="utilizadoresModel.Store.Add_Utilizador" />
-          <FunctionImportMapping FunctionImportName="showPasswordFromEmail" FunctionName="utilizadoresModel.Store.showPasswordFromEmail" />
-          <FunctionImportMapping FunctionImportName="showUSers" FunctionName="utilizadoresModel.Store.showUSers">
+          <FunctionImportMapping FunctionImportName="Add_Utilizador" FunctionName="masterModel.Store.Add_Utilizador" />
+          <FunctionImportMapping FunctionImportName="select_users_and_info" FunctionName="masterModel.Store.select_users_and_info" />
+          <FunctionImportMapping FunctionImportName="showPasswordFromEmail" FunctionName="masterModel.Store.showPasswordFromEmail">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="utilizadoresModel.showUSers_Result">
+              <ComplexTypeMapping TypeName="masterModel.showPasswordFromEmail_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="showUSers" FunctionName="masterModel.Store.showUSers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="masterModel.showUSers_Result">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="Apelido" ColumnName="Apelido" />
@@ -191,32 +320,12 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="Sabados">
-            <EntityTypeMapping TypeName="utilizadoresModel.Sabados">
-              <MappingFragment StoreEntitySet="Sabados">
-                <ScalarProperty Name="Disponibilidade" ColumnName="Disponibilidade" />
-                <ScalarProperty Name="Data" ColumnName="Data" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Igreja">
-            <EntityTypeMapping TypeName="utilizadoresModel.Igreja">
-              <MappingFragment StoreEntitySet="Igreja">
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Telemovel" ColumnName="Telemovel" />
-                <ScalarProperty Name="Localidade" ColumnName="Localidade" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Staff">
-            <EntityTypeMapping TypeName="utilizadoresModel.Staff">
-              <MappingFragment StoreEntitySet="Staff">
-                <ScalarProperty Name="igrejaId" ColumnName="igrejaId" />
-                <ScalarProperty Name="Password" ColumnName="_Password" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+          <EntitySetMapping Name="Registos">
+            <EntityTypeMapping TypeName="masterModel.Registos">
+              <MappingFragment StoreEntitySet="Registos">
+                <ScalarProperty Name="utilizadoresID" ColumnName="utilizadoresID" />
+                <ScalarProperty Name="sabadosID" ColumnName="sabadosID" />
+                <ScalarProperty Name="RegistosID" ColumnName="RegistosID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

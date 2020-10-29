@@ -11,16 +11,14 @@ namespace My_Locker_V2.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Mvc;
-
-    public partial class Staff
-    {
-        public int Id { get; set; }
-        public string Email { get; set; }
-        public string C_Password { get; set; }
-        public Nullable<int> igrejaId { get; set; }
     
-        public virtual Igreja Igreja { get; set; }
-        public SelectList Igrejas { get; set; }
+    public partial class Registos
+    {
+        public int RegistosID { get; set; }
+        public Nullable<int> sabadosID { get; set; }
+        public Nullable<int> utilizadoresID { get; set; }
+    
+        public virtual Sabados Sabados { get; set; }
+        public virtual Utilizadores Utilizadores { get; set; }
     }
 }

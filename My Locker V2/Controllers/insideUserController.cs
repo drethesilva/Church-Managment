@@ -15,9 +15,6 @@ namespace My_Locker_V2.Controllers
         // GET: insideUser
         public ActionResult Index()
         {
-            //List<DateTime> Dates;
-            //string atualYear = DateTime.Now.ToString("yyyy");
-            //Dates = My_Locker_V2.Classes.MyCommonUtilities.GetAllSats(Convert.ToInt32(atualYear));
 
             var Dates = context.Database.SqlQuery<Sabados>("SELECT Data FROM Sabados WHERE Disponibilidade = '1'").ToList();
 

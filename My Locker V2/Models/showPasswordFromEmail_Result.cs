@@ -10,12 +10,10 @@
 namespace My_Locker_V2.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Users
+    public partial class showPasswordFromEmail_Result
     {
-        public int ID { get; set; }
-        public string Username { get; set; }
+        public int Id { get; set; }
         public string Password { get; set; }
     }
 }

@@ -15,10 +15,10 @@ namespace My_Locker_V2.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class masterEntities : DbContext
+    public partial class MasterDB : DbContext
     {
-        public masterEntities()
-            : base("name=masterEntities")
+        public MasterDB()
+            : base("name=MasterDB")
         {
         }
     
@@ -27,10 +27,11 @@ namespace My_Locker_V2.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Utilizadores> Utilizadores { get; set; }
-        public virtual DbSet<Sabados> Sabados { get; set; }
         public virtual DbSet<Igreja> Igreja { get; set; }
+        public virtual DbSet<Sabados> Sabados { get; set; }
         public virtual DbSet<Staff> Staff { get; set; }
+        public virtual DbSet<Utilizadores> Utilizadores { get; set; }
+        public virtual DbSet<Registos> Registos { get; set; }
     
         public virtual int Add_Utilizador(string nome, string apelido, string email, string password, Nullable<bool> membro)
         {
@@ -57,13 +58,18 @@ namespace My_Locker_V2.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_Utilizador", nomeParameter, apelidoParameter, emailParameter, passwordParameter, membroParameter);
         }
     
-        public virtual ObjectResult<string> showPasswordFromEmail(string email)
+        public virtual int select_users_and_info()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("select_users_and_info");
+        }
+    
+        public virtual ObjectResult<showPasswordFromEmail_Result> showPasswordFromEmail(string email)
         {
             var emailParameter = email != null ?
                 new ObjectParameter("Email", email) :
                 new ObjectParameter("Email", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("showPasswordFromEmail", emailParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<showPasswordFromEmail_Result>("showPasswordFromEmail", emailParameter);
         }
     
         public virtual ObjectResult<showUSers_Result> showUSers()
