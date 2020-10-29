@@ -1,1 +1,35 @@
 ﻿
+@{
+    ViewBag.Title = "Manage Saturdays";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<table class="table-responsive" border="0" cellpadding="0" cellspacing="0" id="tblStud">
+    <thead>
+        <tr>
+            <th>
+                Data
+            </th>
+            <th>
+                Disponibilidade
+            </th>
+            <th>
+                Age
+            </th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Data
+            </td>
+            <td>
+                @item.Disponibilidade
+            </td>
+            <td>
+            </td>
+        </tr>
+
+    }
+</table>  

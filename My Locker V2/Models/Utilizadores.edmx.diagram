@@ -8,9 +8,9 @@
         <EntityTypeShape EntityType="masterModel.Igreja" Width="1.5" PointX="1" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="masterModel.Sabados" Width="1.5" PointX="1" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="masterModel.Staff" Width="1.5" PointX="5.375" PointY="0.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="masterModel.Utilizadores" Width="1.5" PointX="3.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="masterModel.Utilizadores" Width="1.5" PointX="7.875" PointY="3.125" IsExpanded="true" />
         <AssociationConnector Association="masterModel.FK__Staff__igrejaId__6774552F" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="masterModel.Registos" Width="1.5" PointX="6" PointY="3.625" />
+        <EntityTypeShape EntityType="masterModel.Registos" Width="1.5" PointX="4.625" PointY="3.25" />
         <AssociationConnector Association="masterModel.FK__Registos__sabado__74CE504D" />
         <AssociationConnector Association="masterModel.FK__Registos__utiliz__75C27486" />
       </Diagram>
