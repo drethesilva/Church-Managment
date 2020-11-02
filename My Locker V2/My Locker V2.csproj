@@ -238,6 +238,7 @@
     <Content Include="Views\Admin\_addStaff.cshtml" />
     <Content Include="Views\staff\StaffCentral.cshtml" />
     <Content Include="Views\staff\_manageSats.cshtml" />
+    <Content Include="Views\staff\_viewRegistosBySat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

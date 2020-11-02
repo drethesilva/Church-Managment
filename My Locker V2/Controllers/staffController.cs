@@ -19,9 +19,15 @@ namespace My_Locker_V2.Controllers
 
         public ActionResult manageSats()
         {
-            var nameIgrejas = context.Database.SqlQuery<Sabados>("SELECT * FROM Sabados").ToList();
+            var nameIgrejas = context.Database.SqlQuery<Sabados>("SELECT * FROM Sabados WHERE Data >= '" + DateTime.Now.ToString("yyyy-MM-dd") + "'").ToList();
 
             return PartialView("_manageSats",nameIgrejas);
+        }
+
+        public ActionResult gotoSat(int Id)
+        {
+
+            return PartialView("_viewRegistosBySat");
         }
     }
 }

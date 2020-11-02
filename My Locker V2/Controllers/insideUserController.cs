@@ -16,7 +16,7 @@ namespace My_Locker_V2.Controllers
         public ActionResult Index()
         {
 
-            var Dates = context.Database.SqlQuery<Sabados>("SELECT Data FROM Sabados WHERE Disponibilidade = '1'").ToList();
+            var Dates = context.Database.SqlQuery<Sabados>("SELECT Data FROM Sabados WHERE Disponibilidade = '1' AND Data >= '"+DateTime.Now.ToString("yyyy-MM-dd")+"' ").ToList();
 
 
             return View(Dates);
